@@ -1,34 +1,32 @@
+// Existing code
 const seconds = document.querySelector(".seconds .number"),
   minutes = document.querySelector(".minutes .number"),
   hours = document.querySelector(".hours .number"),
   days = document.querySelector(".days .number");
 
-let secValue = 60,
-  minValue = 59,
-  hourValue = 23,
-  dayValue = 365;
+// Target end date and time: August 13, 2024, 14:00:00 WITA
+const targetEndTime = new Date('August 13, 2024 14:00:00 GMT+0800');
 
-const timeFunction = setInterval(() => {
-  secValue--;
+function updateCountdown() {
+  const currentTime = new Date();
+  const timeDifference = targetEndTime - currentTime;
 
-  if (secValue === 0) {
-    minValue--;
-    secValue = 60;
-  }
-  if (minValue === 0) {
-    hourValue--;
-    minValue = 60;
-  }
-  if (hourValue === 0) {
-    dayValue--;
-    hourValue = 24;
-  }
-
-  if (dayValue === 0) {
+  if (timeDifference <= 0) {
     clearInterval(timeFunction);
+    return;
   }
-  seconds.textContent = secValue < 10 ? `0${secValue}` : secValue;
-  minutes.textContent = minValue < 10 ? `0${minValue}` : minValue;
-  hours.textContent = hourValue < 10 ? `0${hourValue}` : hourValue;
-  days.textContent = dayValue < 10 ? `0${dayValue}` : dayValue;
-}, 1000); //1000ms = 1s
+
+  const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+  const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+  days.textContent = daysLeft < 10 ? `0${daysLeft}` : daysLeft;
+  hours.textContent = hoursLeft < 10 ? `0${hoursLeft}` : hoursLeft;
+  minutes.textContent = minutesLeft < 10 ? `0${minutesLeft}` : minutesLeft;
+  seconds.textContent = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
+}
+
+updateCountdown(); // Initial call to update countdown
+
+const timeFunction = setInterval(updateCountdown, 1000);

@@ -19,7 +19,7 @@
 }
 .container .image {
   position: absolute;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   object-fit: cover;
   z-index: -1;
