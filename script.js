@@ -5,7 +5,7 @@ const seconds = document.querySelector(".seconds .number"),
   days = document.querySelector(".days .number");
 
 // Target end date and time: August 13, 2024, 14:00:00 WITA
-const targetEndTime = new Date('August 13, 2024 14:00:00 GMT+0800');
+const targetEndTime = new Date('June 25, 2024 14:00:00 GMT+0800');
 
 function updateCountdown() {
   const currentTime = new Date();
